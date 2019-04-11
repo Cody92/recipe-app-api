@@ -1,0 +1,14 @@
+#Everytime the code is checked in to githup, Travis CI will run test cases and 
+#linting(type of progarm that checkes our program for potential errors) tools.
+#It will send the notification on email if the build fails
+
+language: python
+python:
+  - "3.6"
+services:
+  - docker
+
+before-script: pip install docker-compose
+
+script:
+  - docker-compose run app sh -c "python manage.py test && flake8"
