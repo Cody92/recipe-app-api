@@ -19,3 +19,4 @@ services:
 
      #git add .
      #git commit -a
+     #git push origin       to commit to github finally

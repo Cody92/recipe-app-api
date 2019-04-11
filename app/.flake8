@@ -1,4 +1,4 @@
-#linting tool
+#linting tool. check Travis-CI website and your build has been started once you push to github
 [flake8]
 exclude =
   migrations,
