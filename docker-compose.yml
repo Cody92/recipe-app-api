@@ -9,14 +9,32 @@ services:
     volumes:
       - ./app:/app   #copy local app folder to app diretory in docker image
     command: >       #command is the execution.> breaks the command to next line. Make sure the indentation is 1
-     sh -c "python manage.py runserver 0.0.0.0:8000"
-    
+     sh -c "python manage.py wait_for_db &&
+            python manage.py migrate &&
+            python manage.py runserver 0.0.0.0:8000"
+    environment:
+     - DB_HOST=db
+     - DB_NAME=app
+     - DB_USER=postgres
+     - DB_PASSWORD=123
+    depends_on:
+     - db
+
+  db:
+    image: postgres:10-alpine
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123  
 
      #docker-compose build in command prompt
 
      #docker-compose run app sh -c "django-admin.py startproject app ."
      #adds new django project to the app folder 
 
+     #docker-compose up       to run the dev server
+
      #git add .
      #git commit -a
      #git push origin       to commit to github finally
+
